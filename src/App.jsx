@@ -278,4 +278,4 @@ const AuthScreen = () => {
                     </div>
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="password">Password</label>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" required className="b
+                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
