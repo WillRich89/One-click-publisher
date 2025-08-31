@@ -251,15 +251,16 @@ const AuthScreen = () => {
 
     const handleAuthAction = async (e) => {
         e.preventDefault();
-        setError('');
+        setError(''); 
         try {
             if (isLoginView) {
                 await signInWithEmailAndPassword(auth, email, password);
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
             }
+            
         } catch (err) {
-            setError(err.message);
+            setError("Invalid email or password. Please try again.");
         }
     };
 
@@ -276,6 +277,31 @@ const AuthScreen = () => {
                         <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="email">Email Address</label>
                         <input type="email" value={email} onChange={e => setEmail(e.target.value)} id="email" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
                     </div>
+                    
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="password">Password</label>
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
+                    </div>
+
+                    {!isLoginView && (
+                         <div>
+                            <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
+                        </div>
+                    )}
+
+                    {error && <p className="text-red-400 text-sm text-center">{error}</p>}
+                    
+                    <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-lg">{isLoginView ? 'Log In' : 'Create Account'}</button>
+                </form>
+                <p className="text-center text-gray-400 mt-6">
+                    {isLoginView ? "Don't have an account?" : "Already have an account?"}
+                    <button onClick={() => { setIsLoginView(!isLoginView); setError(''); }} className="font-semibold text-blue-400 hover:underline ml-2">
+                        {isLoginView ? 'Sign Up' : 'Log In'}
+                    </button>
+                </p>
+            </div>
+        </div>
+    );
+};
+
