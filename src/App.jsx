@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
-// --- Firebase Imports ---
 import { initializeApp } from 'firebase/app';
 import { 
     getAuth, 
@@ -21,29 +19,19 @@ import {
     doc
 } from 'firebase/firestore';
 
-
-// --- [IMPORTANT] Firebase Configuration ---
-// Import the functions you need from the SDKs you need
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBvJdzrVldl0XzxCKIKA2YktzrbnSehGUo",
-  authDomain: "taskzen-hfjo2.firebaseapp.com",
-  projectId: "taskzen-hfjo2",
-  storageBucket: "taskzen-hfjo2.firebasestorage.app",
-  messagingSenderId: "12524081585",
-  appId: "1:12524081585:web:b0d88d4903115d8fdc6d90"
+  apiKey: "AIzaSyYOUR_API_KEY_HERE",
+  authDomain: "your-project-id.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project-id.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
-// --- Initialize Firebase ---
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-
-// --- SVG Icons ---
 const PlusIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg> );
 const CodeBracketIcon = ({ className = "w-6 h-6 mr-3 text-gray-400" }) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M14.25 9.75L16.5 12l-2.25 2.25m-4.5 0L7.5 12l2.25-2.25M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg> );
 const LinkIcon = ({className = "w-5 h-5 text-gray-400"}) => ( <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg> );
@@ -53,9 +41,6 @@ const ArrowDownTrayIcon = () => ( <svg xmlns="http://www.w3.org/2000/svg" fill="
 const TrashIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.134-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.067-2.09 1.02-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" /></svg>);
 const UserCircleIcon = ({className="w-6 h-6"}) => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={className}><path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" /></svg>);
 const ArrowRightOnRectangleIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5 mr-2"><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" /></svg>);
-
-
-// --- UI Components ---
 
 const StatusIndicator = ({ status }) => {
   const baseClasses = "inline-block px-2 py-1 text-xs font-semibold rounded-full";
@@ -251,14 +236,13 @@ const AuthScreen = () => {
 
     const handleAuthAction = async (e) => {
         e.preventDefault();
-        setError(''); 
+        setError('');
         try {
             if (isLoginView) {
                 await signInWithEmailAndPassword(auth, email, password);
             } else {
                 await createUserWithEmailAndPassword(auth, email, password);
             }
-            
         } catch (err) {
             setError("Invalid email or password. Please try again.");
         }
@@ -277,21 +261,17 @@ const AuthScreen = () => {
                         <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="email">Email Address</label>
                         <input type="email" value={email} onChange={e => setEmail(e.target.value)} id="email" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
                     </div>
-                    
                     <div>
                         <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="password">Password</label>
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
                     </div>
-
                     {!isLoginView && (
                          <div>
                             <label className="block text-sm font-medium text-gray-300 mb-1" htmlFor="confirm-password">Confirm Password</label>
                             <input type="password" id="confirm-password" required className="block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm p-3 focus:ring-blue-500 focus:border-blue-500" />
                         </div>
                     )}
-
                     {error && <p className="text-red-400 text-sm text-center">{error}</p>}
-                    
                     <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition text-lg">{isLoginView ? 'Log In' : 'Create Account'}</button>
                 </form>
                 <p className="text-center text-gray-400 mt-6">
@@ -304,4 +284,162 @@ const AuthScreen = () => {
         </div>
     );
 };
+
+const UserProfileDropdown = ({ user, onGoToAccount }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleLogout = () => signOut(auth);
+
+    return (
+        <div className="relative">
+            <button onClick={() => setIsOpen(!isOpen)} className="p-2 rounded-full hover:bg-gray-700/50 transition">
+                <UserCircleIcon />
+            </button>
+            {isOpen && (
+                <div onMouseLeave={() => setIsOpen(false)} className="absolute right-0 mt-2 w-56 bg-gray-800 border border-gray-700 rounded-lg shadow-xl z-10">
+                    <div className="p-2">
+                         <div className="px-2 py-2 border-b border-gray-700">
+                             <p className="text-sm text-gray-300">Signed in as</p>
+                             <p className="font-semibold text-white truncate">{user.email}</p>
+                         </div>
+                        <div className="pt-2 space-y-1">
+                            <button onClick={() => { setIsOpen(false); onGoToAccount(); }} className="w-full text-left px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 flex items-center transition rounded-md"><UserCircleIcon className="w-5 h-5 mr-2" /> My Account</button>
+                            <button onClick={handleLogout} className="w-full text-left px-2 py-2 text-sm text-gray-300 hover:bg-gray-700 flex items-center transition rounded-md"><ArrowRightOnRectangleIcon /> Log Out</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+function App() {
+    const [user, setUser] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [projects, setProjects] = useState([]);
+    const [view, setView] = useState('dashboard');
+    const [selectedProjectId, setSelectedProjectId] = useState(null);
+    
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setIsLoading(false);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        if (!user) {
+            setProjects([]);
+            return;
+        }
+        
+        const projectsRef = collection(db, "projects");
+        const q = query(projectsRef, where("userId", "==", user.uid));
+
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            const userProjects = [];
+            querySnapshot.forEach((doc) => {
+                userProjects.push({ id: doc.id, ...doc.data() });
+            });
+            setProjects(userProjects);
+        });
+
+        return () => unsubscribe();
+    }, [user]);
+
+    const handleAddProject = async (newProjectData) => {
+        if (!user) return;
+        try {
+            await addDoc(collection(db, "projects"), {
+                ...newProjectData,
+                userId: user.uid,
+                createdAt: new Date(),
+            });
+            setView('dashboard');
+        } catch (error) {
+            console.error("Error adding project: ", error);
+        }
+    };
+    
+    const handleUpdateProject = async (updatedProject) => {
+        const projectRef = doc(db, "projects", updatedProject.id);
+        try {
+            await updateDoc(projectRef, {
+                name: updatedProject.name,
+                sourceUrl: updatedProject.sourceUrl
+            });
+        } catch (error) {
+            console.error("Error updating project: ", error);
+        }
+    };
+    
+    const handleDeleteProject = async (projectId) => {
+        const projectRef = doc(db, "projects", projectId);
+        try {
+            await deleteDoc(projectRef);
+            setView('dashboard');
+        } catch (error) {
+            console.error("Error deleting project: ", error);
+        }
+    };
+
+    const handleSelectProject = (id) => { setSelectedProjectId(id); setView('projectDetail'); };
+    const selectedProject = projects.find(p => p.id === selectedProjectId);
+
+    if (isLoading) {
+        return <div className="bg-gray-900 min-h-screen flex items-center justify-center text-white text-xl">Loading One-Click Publisher...</div>;
+    }
+    
+    if (!user) {
+        return <div className="bg-gray-900 text-white min-h-screen font-sans"><AuthScreen /></div>
+    }
+    
+    let currentView;
+    switch (view) {
+        case 'newProject':
+            currentView = <NewProjectForm onAddProject={handleAddProject} onCancel={() => setView('dashboard')} />;
+            break;
+        case 'projectDetail':
+            currentView = selectedProject && <ProjectDetailView project={selectedProject} onBack={() => setView('dashboard')} onUpdate={handleUpdateProject} onDelete={handleDeleteProject} />;
+            break;
+        case 'accountSettings':
+            currentView = <AccountSettingsScreen onBack={() => setView('dashboard')} />;
+            break;
+        case 'dashboard':
+        default:
+            currentView = (
+                <div>
+                    <header className="flex justify-between items-center mb-8">
+                        <div><h1 className="text-3xl font-bold tracking-tight text-white">Publisher Dashboard</h1><p className="text-gray-400 mt-1">Your bridge to the Play Store.</p></div>
+                        <div className="flex items-center gap-4">
+                            <button onClick={() => setView('newProject')} className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 flex items-center gap-2"><PlusIcon /><span className="hidden sm:inline">New Project</span></button>
+                            <UserProfileDropdown user={user} onGoToAccount={() => setView('accountSettings')} />
+                        </div>
+                    </header>
+                    <main>
+                      <div className="space-y-4">
+                        {projects.length > 0 ? (
+                           projects.map(project => ( <div key={project.id} onClick={() => handleSelectProject(project.id)} className="bg-gray-800/50 hover:bg-gray-800 border border-gray-700 p-4 rounded-lg shadow-md transition-all duration-300 flex items-center justify-between cursor-pointer"><div className="flex items-center"><CodeBracketIcon /><div><h2 className="font-semibold text-lg text-white">{project.name}</h2><p className="text-sm text-gray-400">{project.platform} • Created: {project.createdAt ? new Date(project.createdAt.toDate()).toLocaleDateString() : 'N/A'}</p></div></div><div className="flex items-center gap-4"><StatusIndicator status={project.lastBuild} /><span className="text-gray-500 hidden sm:inline">→</span></div></div> ))
+                        ) : (
+                            <div className="text-center py-16 px-6 bg-gray-800/50 border border-dashed border-gray-700 rounded-lg">
+                                <h3 className="text-xl font-semibold text-gray-300">Welcome!</h3>
+                                <p className="text-gray-400 mt-2">You have no projects yet. Click "+ New Project" to start your first build.</p>
+                            </div>
+                        )}
+                      </div>
+                    </main>
+                </div>
+            );
+    }
+
+    return (
+        <div className="bg-gray-900 text-white min-h-screen font-sans">
+            <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+                {currentView}
+            </div>
+        </div>
+    );
+}
+
+export default App;
 
