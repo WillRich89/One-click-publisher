@@ -25,7 +25,7 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBvJdzrVldl0XzxCKIKA2YktzrbnSehGUo",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "taskzen-hfjo2.firebaseapp.com",
   projectId: "taskzen-hfjo2",
   storageBucket: "taskzen-hfjo2.firebasestorage.app",
