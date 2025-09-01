@@ -26,11 +26,11 @@ import {
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
-  authDomain: "taskzen-hfjo2.firebaseapp.com",
-  projectId: "taskzen-hfjo2",
-  storageBucket: "taskzen-hfjo2.firebasestorage.app",
-  messagingSenderId: "12524081585",
-  appId: "1:12524081585:web:b0d88d4903115d8fdc6d90"
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 // Initialize Firebase
